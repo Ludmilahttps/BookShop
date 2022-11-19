@@ -21,3 +21,12 @@ b) source-code em um único arquivo zip.
 A (i) complexidade do problema escolhido e criatividade, (ii) a sua forma de solução, (iii) o uso correto dos
 conceitos de POO e a (iv) observância dos requisitos acima, comporão a nota, através de análise subjetiva
 pelo professor. 
+
+
+livraria
+editoras
+compras(filha de editoras)
+histórico (filha de compras)
+livros (filha de compras)
+vendas (filha de livros e de funcionarios)
+funcionarios
