@@ -1,7 +1,9 @@
 #include "books.hpp"
-#include "employees.hpp"
 #include "publishers.hpp"
 #include "client.hpp"
+#include "softcover.hpp"
+#include "hardcover.hpp"
+#include "imported.hpp"
 
 Publishers *BookList = new Publishers();
 Client *Customer = new Client;
@@ -9,6 +11,7 @@ Books *aux = new Books;
 vector<Softcover *> SoftcoverBook;
 vector<HardCover *> HardCoverBook;
 vector<Imported *> ImportedBook;
+
 size_t menu();
 void Sale(pair<string, string>);
 void ShowCart();
@@ -264,19 +267,18 @@ void SaleSuccess()
     cout << endl
          << "Amount:    " << value << endl;
 
+    //Deleto os itens do carrinho
     for (int i = 0; i < SoftcoverBook.size(); i++)
     {
-        delete SoftcoverBook.at(i);
+        SoftcoverBook.at(i) = nullptr;
     }
     for (int i = 0; i < HardCoverBook.size(); i++)
     {
-        delete HardCoverBook.at(i);
+        HardCoverBook.at(i) = nullptr;
     }
     for (int i = 0; i < ImportedBook.size(); i++)
     {
-        delete ImportedBook.at(i);
+        ImportedBook.at(i) = nullptr;
     }
-    delete Customer;
-    delete aux;
     return;
 }

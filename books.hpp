@@ -30,40 +30,4 @@ public:
     };
 };
 
-class Softcover : public Books
-{
-protected:
-    string m_bookS;
-
-public:
-    Softcover() : m_bookS(""){};
-    Softcover(Client *client, float price, string bookS) : Books(client, price = 20), m_bookS(bookS){};
-    ~Softcover(){};
-    string GetBook() const { return m_bookS; };
-};
-
-class HardCover : public Books
-{
-protected:
-    string m_bookH;
-
-public:
-    HardCover() : m_bookH(""){};
-    HardCover(Client *Client, float price, string bookH) : Books(Client, price = 40), m_bookH(bookH){};
-    ~HardCover(){};
-    string GetBook() const { return m_bookH; };
-};
-
-class Imported : public Books
-{
-protected:
-    string m_bookI;
-
-public:
-    Imported() : m_bookI(""){};
-    Imported(Client *client, float price, string bookI) : Books(client, price = 60), m_bookI(bookI){};
-    ~Imported(){};
-    string GetBook() const { return m_bookI; };
-};
-
 #endif
