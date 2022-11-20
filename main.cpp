@@ -10,7 +10,8 @@ vector<Softcover *> SoftcoverBook;
 vector<HardCover *> HardCoverBook;
 vector<Imported *> ImportedBook;
 size_t menu();
-void Sale(int qtd);
+void Sale(pair<string, string>);
+void ShowCart();
 void SaleSuccess();
 
 int main()
@@ -37,7 +38,8 @@ int main()
             cin >> IndexPublisher;
             cout << "What book index do you want? " << endl;
             cin >> IndexBook;
-            Sale();
+
+            Sale(BookList->GetInfo(IndexPublisher, IndexBook));
             continue;
         }
         if (option == 3)
@@ -48,6 +50,7 @@ int main()
         if (option == 4)
         {
             cout << "4. Show cart" << endl;
+            ShowCart();
             continue;
         }
         if (option == 5)
@@ -60,6 +63,8 @@ int main()
         if (option == 6)
         {
             cout << "6. Exit" << endl;
+            delete Customer;
+            delete aux;
             break;
         }
         if (option != 1 || option != 2 || option != 3 || option != 4 || option != 5 || option != 6)
@@ -68,18 +73,8 @@ int main()
             continue;
         }
     } while (option != 6);
-
-    int qtd;
-    cout << "Enter the number of books to be purchased: " << endl;
-    cin >> qtd;
-    if (qtd <= 0)
-    {
-        cout << "Chose a valid number" << endl;
-        return 1;
-    }
-    cin.ignore();
-
-    Sale();
+    delete Customer;
+    delete aux;
     return 0;
 }
 
@@ -101,75 +96,68 @@ size_t menu()
     return option;
 }
 
-void Sale()
+void Sale(pair<string, string> element)
 {
+    string publisherName = element.first, bookName = element.second,
+    authorS, authorH, authorI, NbookS, NbookH, NbookI;
     float price;
-    string authorS, authorH, authorI, NbookS, NbookH, NbookI;
-    int book;
+    int type;
+
     cout << "--------------------------------------------------- " << endl;
-    cout << "Choose the type of book: " << endl;
+    cout << "Choose the type of " << bookName << " : " << endl;
     cout << "1 - SoftCover" << endl;
     cout << "2 - HardCover" << endl;
     cout << "3 - Imported" << endl;
     cout << "--------------------------------------------------- " << endl;
-    cin >> book;
+    cin >> type;
     cin.ignore();
 
-    if (book == 1)
+    if (type == 1)
     {
-        cout << "--------------------------------------------------- " << endl;
         Books c(Customer, price);
-        cout << "Enter the name of the book: " << endl;
-        getline(cin, NbookS);
-        cout << "Enter the author of the book: " << endl;
-        getline(cin, authorS);
-        Softcover Soft(Customer, price, NbookS, authorS);
+        Softcover Soft(Customer, price, bookName);
         SoftcoverBook.push_back(new Softcover(Soft));
-        cout << "--------------------------------------------------- " << endl;
     }
-    if (book == 2)
+    if (type == 2)
     {
-        cout << "--------------------------------------------------- " << endl;
         Books c(Customer, price);
-        cout << "Enter the name of the book: " << endl;
-        getline(cin, NbookH);
-        cout << "Enter the author of the book: " << endl;
-        getline(cin, authorH);
-        HardCover Hard(Customer, price, NbookH, authorH);
+        HardCover Hard(Customer, price, bookName);
         HardCoverBook.push_back(new HardCover(Hard));
-        cout << "--------------------------------------------------- " << endl;
     }
-    if (book == 3)
+    if (type == 3)
     {
-        cout << "--------------------------------------------------- " << endl;
         Books c(Customer, price);
-        cout << "Enter the name of the book: " << endl;
-        getline(cin, NbookI);
-        cout << "Enter the author of the book:  " << endl;
-        getline(cin, authorI);
-        Imported Imp(Customer, price, NbookI, authorI);
+        Imported Imp(Customer, price, bookName);
         ImportedBook.push_back(new Imported(Imp));
-        cout << "--------------------------------------------------- " << endl;
     }
-    else if (book < 1 || book > 3)
+    else if (type < 1 || type > 3)
     {
         cout << "Chose a valid number!" << endl;
-        for (int i = 0; i < SoftcoverBook.size(); i++)
-        {
-            delete SoftcoverBook.at(i);
-        }
-        for (int i = 0; i < HardCoverBook.size(); i++)
-        {
-            delete HardCoverBook.at(i);
-        }
-        for (int i = 0; i < ImportedBook.size(); i++)
-        {
-            delete ImportedBook.at(i);
-        }
-        delete Customer;
-        delete aux;
         return;
     }
+}
+
+void ShowCart()
+{
+    for (int i = 0; i < SoftcoverBook.size(); i++)
+    {
+        cout << "SoftCover" << endl;
+        cout << "Book:      " << SoftcoverBook.at(i)->GetBook() << endl;
+        cout << "Valor:     " << SoftcoverBook.at(i)->GetPrice() << endl;
+    }
+    for (int i = 0; i < HardCoverBook.size(); i++)
+    {
+        cout << "HardCover" << endl;
+        cout << "Book:      " << HardCoverBook.at(i)->GetBook() << endl;
+        cout << "Valor:     " << HardCoverBook.at(i)->GetPrice() << endl;
+    }
+    for (int i = 0; i < ImportedBook.size(); i++)
+    {
+        cout << "Imported" << endl;
+        cout << "Book:      " << ImportedBook.at(i)->GetBook() << endl;
+        cout << "Valor:     " << ImportedBook.at(i)->GetPrice() << endl;
+    }
+
 }
 
 void SaleSuccess()
@@ -188,7 +176,6 @@ void SaleSuccess()
     {
         cout << "SoftCover" << endl;
         cout << "Book:      " << SoftcoverBook.at(i)->GetBook() << endl;
-        cout << "Author:    " << SoftcoverBook.at(i)->GetAuthor() << endl;
         cout << "Valor:     " << SoftcoverBook.at(i)->GetPrice() << endl;
         value = value + SoftcoverBook.at(i)->GetPrice();
     }
@@ -196,7 +183,6 @@ void SaleSuccess()
     {
         cout << "HardCover" << endl;
         cout << "Book:      " << HardCoverBook.at(i)->GetBook() << endl;
-        cout << "Author:    " << HardCoverBook.at(i)->GetAuthor() << endl;
         cout << "Valor:     " << HardCoverBook.at(i)->GetPrice() << endl;
         value = value + HardCoverBook.at(i)->GetPrice();
     }
@@ -204,7 +190,6 @@ void SaleSuccess()
     {
         cout << "Imported" << endl;
         cout << "Book:      " << ImportedBook.at(i)->GetBook() << endl;
-        cout << "Author:    " << ImportedBook.at(i)->GetAuthor() << endl;
         cout << "Valor:     " << ImportedBook.at(i)->GetPrice() << endl;
         value = value + ImportedBook.at(i)->GetPrice();
     }

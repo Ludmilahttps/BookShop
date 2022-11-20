@@ -22,13 +22,14 @@ private:
     vector<string> m_Books;
     vector<string> filenames;
 
-public:
+public: 
     Publishers() : filenames({"Darkside", "Rocco", "Harper_Collins"}){};
 
     //getters and setters
     void ShowInfo();
     void getBooks();
     bool open_file(string m_Publisher, vector<string> &m_Books);
+    pair<string, string> GetInfo(int IPublisher, int IBook);
     
 };
 

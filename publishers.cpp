@@ -44,11 +44,6 @@ bool Publishers::open_file(string m_Publisher, vector<string> &m_Books)
 
 void Publishers::ShowInfo()
 {
-    for(int i=0;i<filenames.size();i++)
-    {
-        cout << "Filename: " << filenames[i] << endl;
-    }
-
     for (size_t i = 0; i < m_ListOfBooks.size(); i++)
     {
         for (size_t j = 0; j < m_ListOfBooks.at(i).second.size(); j++)
@@ -59,4 +54,14 @@ void Publishers::ShowInfo()
         }
     }
     
+}
+
+pair<string, string> Publishers::GetInfo(int IPublisher, int IBook)
+{
+    pair<string, string> aux;
+
+    aux.first = m_ListOfBooks.at(IPublisher).first;
+    aux.second = m_ListOfBooks.at(IPublisher).second.at(IBook);
+
+    return aux;
 }
