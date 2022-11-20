@@ -27,7 +27,6 @@ bool Publishers::open_file(string m_Publisher, vector<string> &m_Books)
         string line;
         while (getline(infile, line))
         {
-            istringstream ss_line(line);
             if (line.size() != 0)
             {
                 m_Books.push_back(line);
@@ -54,7 +53,9 @@ void Publishers::ShowInfo()
     {
         for (size_t j = 0; j < m_ListOfBooks.at(i).second.size(); j++)
         {
-            cout <<"Publisher: "<<  m_ListOfBooks.at(i).first << "    Book: " << m_ListOfBooks.at(i).second.at(j) << endl;
+            cout <<
+            "Publisher " << i << " : "<<  m_ListOfBooks.at(i).first << "   Book " << j << " : " << m_ListOfBooks.at(i).second.at(j) 
+            << endl;
         }
     }
     

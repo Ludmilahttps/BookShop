@@ -1,76 +1,65 @@
 #include "books.hpp"
 #include "employees.hpp"
-#include "historic.hpp"
 #include "publishers.hpp"
-#include "purchases.hpp"
-#include "sales.hpp"
+#include "client.hpp"
 
+Publishers *BookList = new Publishers();
+Client *Customer = new Client;
+Books *aux = new Books;
+vector<Softcover *> SoftcoverBook;
+vector<HardCover *> HardCoverBook;
+vector<Imported *> ImportedBook;
 size_t menu();
-size_t menu2();
+void Sale(int qtd);
+void SaleSuccess();
 
-main()
+int main()
 {
+    BookList->getBooks();
     size_t option = 0;
     do
     {
         option = menu();
         if (option == 1)
         {
-            cout << "1. Sale" << endl;
+            cout << "1. See All Books" << endl;
+            cout << "These are the books available for purchase" << endl;
+            BookList->ShowInfo();
             continue;
         }
         if (option == 2)
         {
-            cout << "2. Show books" << endl;
+            int IndexPublisher, IndexBook;
+            cout << "2. Add Book to card" << endl;
+            cout << "These are the books available for purchase" << endl;
+            BookList->ShowInfo();
+            cout << "What publisher index do you want? " << endl;
+            cin >> IndexPublisher;
+            cout << "What book index do you want? " << endl;
+            cin >> IndexBook;
+            Sale();
             continue;
         }
         if (option == 3)
         {
-            cout << "3. Show employees" << endl;
+            cout << "3. Remove book" << endl;
             continue;
         }
         if (option == 4)
         {
-            cout << "4. Show historic" << endl;
+            cout << "4. Show cart" << endl;
             continue;
         }
         if (option == 5)
         {
-            size_t option2 = 0;
-            do
-            {
-            option2 = menu2();
-            if (option2 == 1)
-            {
-                cout << "1. Buy books" << endl;
-                continue;
-            }
-            if (option2 == 2)
-            {
-                cout << "2. Register employee" << endl;
-                continue;
-            }
-            if (option2 == 3)
-            {
-                cout << "3. Register publisher" << endl;
-                continue;
-            }
-            if (option2 == 4)
-            {
-                cout << "4. Exit to bookstore menu" << endl;
-                break;
-            }
-            if (option2 != 1 || option2 != 2 || option2 != 3 || option2 != 4)
-            {
-                cout << "Please chose a valid number" << endl;
-                continue;
-            }
-            } while (option2 != 4);
+            cout << "5. Checkout" << endl;
+            aux->Date(Customer->AddClient());
+            SaleSuccess();
             continue;
         }
         if (option == 6)
         {
-            cout << "5. Exit" << endl;
+            cout << "6. Exit" << endl;
             break;
         }
         if (option != 1 || option != 2 || option != 3 || option != 4 || option != 5 || option != 6)
@@ -79,6 +68,18 @@ main()
             continue;
         }
     } while (option != 6);
+
+    int qtd;
+    cout << "Enter the number of books to be purchased: " << endl;
+    cin >> qtd;
+    if (qtd <= 0)
+    {
+        cout << "Chose a valid number" << endl;
+        return 1;
+    }
+    cin.ignore();
+
+    Sale();
     return 0;
 }
 
@@ -87,11 +88,11 @@ size_t menu()
     size_t option;
 
     cout << "---------------------Bookstore-------------------" << endl
-         << "1. Sale" << endl
-         << "2. Show books" << endl
-         << "3. Show employees" << endl
-         << "4. Show historic" << endl
-         << "5. Registration menu" << endl
+         << "1. See All Books" << endl
+         << "2. Add Book" << endl
+         << "3. Remove book" << endl
+         << "4. Show cart" << endl
+         << "5. Checkout" << endl
          << "6. Exit" << endl
          << "-------------------------------------------------" << endl
          << "Option:";
@@ -100,18 +101,129 @@ size_t menu()
     return option;
 }
 
-size_t menu2()
+void Sale()
 {
-    size_t option;
+    float price;
+    string authorS, authorH, authorI, NbookS, NbookH, NbookI;
+    int book;
+    cout << "--------------------------------------------------- " << endl;
+    cout << "Choose the type of book: " << endl;
+    cout << "1 - SoftCover" << endl;
+    cout << "2 - HardCover" << endl;
+    cout << "3 - Imported" << endl;
+    cout << "--------------------------------------------------- " << endl;
+    cin >> book;
+    cin.ignore();
 
-    cout << "----------------Registration menu----------------" << endl
-         << "1. Buy books" << endl
-         << "2. Register employee" << endl
-         << "3. Register publisher" << endl
-         << "4. Exit to bookstore menu" << endl
-         << "-------------------------------------------------" << endl
-         << "Option:";
-    cin >> option;
+    if (book == 1)
+    {
+        cout << "--------------------------------------------------- " << endl;
+        Books c(Customer, price);
+        cout << "Enter the name of the book: " << endl;
+        getline(cin, NbookS);
+        cout << "Enter the author of the book: " << endl;
+        getline(cin, authorS);
+        Softcover Soft(Customer, price, NbookS, authorS);
+        SoftcoverBook.push_back(new Softcover(Soft));
+        cout << "--------------------------------------------------- " << endl;
+    }
+    if (book == 2)
+    {
+        cout << "--------------------------------------------------- " << endl;
+        Books c(Customer, price);
+        cout << "Enter the name of the book: " << endl;
+        getline(cin, NbookH);
+        cout << "Enter the author of the book: " << endl;
+        getline(cin, authorH);
+        HardCover Hard(Customer, price, NbookH, authorH);
+        HardCoverBook.push_back(new HardCover(Hard));
+        cout << "--------------------------------------------------- " << endl;
+    }
+    if (book == 3)
+    {
+        cout << "--------------------------------------------------- " << endl;
+        Books c(Customer, price);
+        cout << "Enter the name of the book: " << endl;
+        getline(cin, NbookI);
+        cout << "Enter the author of the book:  " << endl;
+        getline(cin, authorI);
+        Imported Imp(Customer, price, NbookI, authorI);
+        ImportedBook.push_back(new Imported(Imp));
+        cout << "--------------------------------------------------- " << endl;
+    }
+    else if (book < 1 || book > 3)
+    {
+        cout << "Chose a valid number!" << endl;
+        for (int i = 0; i < SoftcoverBook.size(); i++)
+        {
+            delete SoftcoverBook.at(i);
+        }
+        for (int i = 0; i < HardCoverBook.size(); i++)
+        {
+            delete HardCoverBook.at(i);
+        }
+        for (int i = 0; i < ImportedBook.size(); i++)
+        {
+            delete ImportedBook.at(i);
+        }
+        delete Customer;
+        delete aux;
+        return;
+    }
+}
 
-    return option;
+void SaleSuccess()
+{
+    cout << "--------------------------------------------------- " << endl;
+    cout << "         PURCHASE COMPLETED SUCCESSFULLY!           " << endl;
+    cout << "--------------------------------------------------- " << endl;
+
+    float value;
+    cout << "Client name:   " << Customer->GetName() << endl;
+    cout << "Client CPF:    " << Customer->GetCpf() << endl;
+    cout << "Purchase day:  " << aux->GetDate() << endl
+         << endl;
+
+    for (int i = 0; i < SoftcoverBook.size(); i++)
+    {
+        cout << "SoftCover" << endl;
+        cout << "Book:      " << SoftcoverBook.at(i)->GetBook() << endl;
+        cout << "Author:    " << SoftcoverBook.at(i)->GetAuthor() << endl;
+        cout << "Valor:     " << SoftcoverBook.at(i)->GetPrice() << endl;
+        value = value + SoftcoverBook.at(i)->GetPrice();
+    }
+    for (int i = 0; i < HardCoverBook.size(); i++)
+    {
+        cout << "HardCover" << endl;
+        cout << "Book:      " << HardCoverBook.at(i)->GetBook() << endl;
+        cout << "Author:    " << HardCoverBook.at(i)->GetAuthor() << endl;
+        cout << "Valor:     " << HardCoverBook.at(i)->GetPrice() << endl;
+        value = value + HardCoverBook.at(i)->GetPrice();
+    }
+    for (int i = 0; i < ImportedBook.size(); i++)
+    {
+        cout << "Imported" << endl;
+        cout << "Book:      " << ImportedBook.at(i)->GetBook() << endl;
+        cout << "Author:    " << ImportedBook.at(i)->GetAuthor() << endl;
+        cout << "Valor:     " << ImportedBook.at(i)->GetPrice() << endl;
+        value = value + ImportedBook.at(i)->GetPrice();
+    }
+
+    cout << endl
+         << "Amount:    " << value << endl;
+
+    for (int i = 0; i < SoftcoverBook.size(); i++)
+    {
+        delete SoftcoverBook.at(i);
+    }
+    for (int i = 0; i < HardCoverBook.size(); i++)
+    {
+        delete HardCoverBook.at(i);
+    }
+    for (int i = 0; i < ImportedBook.size(); i++)
+    {
+        delete ImportedBook.at(i);
+    }
+    delete Customer;
+    delete aux;
 }

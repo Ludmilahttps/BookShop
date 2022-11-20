@@ -11,7 +11,7 @@
 #include <sstream>
 #include <algorithm>
 
-using namespace std;
+using namespace std; // ¯\(°_o)/¯
 
 class Publishers
 {
@@ -23,7 +23,6 @@ private:
     vector<string> filenames;
 
 public:
-    //Publishers() : {};
     Publishers() : filenames({"Darkside", "Rocco", "Harper_Collins"}){};
 
     //getters and setters
