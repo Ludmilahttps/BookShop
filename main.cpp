@@ -12,6 +12,7 @@ vector<Imported *> ImportedBook;
 size_t menu();
 void Sale(pair<string, string>);
 void ShowCart();
+void DeleteItem(int, int);
 void SaleSuccess();
 
 int main()
@@ -44,7 +45,22 @@ int main()
         }
         if (option == 3)
         {
+            int Type, NameB;
             cout << "3. Remove book" << endl;
+            cout << "These are the books in your cart" << endl;
+            void ShowCart();
+
+            cout << "What type of book do you want to delete? 1.SoftCover 2.HardCover 3.Imported" << endl;
+            cin >> Type;
+            if (Type < 1 || Type > 3)
+            {
+                cout << "Chose a valid number" << endl;
+                continue;
+            }
+            cout << "What book index do you want delete? " << endl;
+            cin >> NameB;
+
+            DeleteItem(Type, NameB);
             continue;
         }
         if (option == 4)
@@ -63,6 +79,18 @@ int main()
         if (option == 6)
         {
             cout << "6. Exit" << endl;
+            for (int i = 0; i < SoftcoverBook.size(); i++)
+            {
+                delete SoftcoverBook[i];
+            }
+            for (int i = 0; i < HardCoverBook.size(); i++)
+            {
+                delete HardCoverBook[i];
+            }
+            for (int i = 0; i < ImportedBook.size(); i++)
+            {
+                delete ImportedBook[i];
+            }
             delete Customer;
             delete aux;
             break;
@@ -99,7 +127,7 @@ size_t menu()
 void Sale(pair<string, string> element)
 {
     string publisherName = element.first, bookName = element.second,
-    authorS, authorH, authorI, NbookS, NbookH, NbookI;
+           authorS, authorH, authorI, NbookS, NbookH, NbookI;
     float price;
     int type;
 
@@ -135,29 +163,59 @@ void Sale(pair<string, string> element)
         cout << "Chose a valid number!" << endl;
         return;
     }
+    return;
 }
 
 void ShowCart()
 {
     for (int i = 0; i < SoftcoverBook.size(); i++)
     {
-        cout << "SoftCover" << endl;
+        if(SoftcoverBook.at(i) != nullptr)
+        {
+        cout << "SoftCover" << i << endl;
         cout << "Book:      " << SoftcoverBook.at(i)->GetBook() << endl;
         cout << "Valor:     " << SoftcoverBook.at(i)->GetPrice() << endl;
+        }
     }
     for (int i = 0; i < HardCoverBook.size(); i++)
     {
-        cout << "HardCover" << endl;
+        if(HardCoverBook.at(i) != nullptr)
+        {
+        cout << "HardCover" << i << endl;
         cout << "Book:      " << HardCoverBook.at(i)->GetBook() << endl;
         cout << "Valor:     " << HardCoverBook.at(i)->GetPrice() << endl;
+        }
     }
     for (int i = 0; i < ImportedBook.size(); i++)
     {
-        cout << "Imported" << endl;
+        if(ImportedBook.at(i) != nullptr)
+        {
+        cout << "Imported" << i << endl;
         cout << "Book:      " << ImportedBook.at(i)->GetBook() << endl;
         cout << "Valor:     " << ImportedBook.at(i)->GetPrice() << endl;
+        }
     }
+    return;
+}
 
+void DeleteItem(int Type, int NameB)
+{
+    if (Type == 1)
+    {
+        SoftcoverBook.at(NameB) = nullptr;
+        cout << "deleted" << endl;
+    }
+    if (Type == 2)
+    {
+        HardCoverBook.at(NameB) = nullptr;
+        cout << "deleted" << endl;
+    }
+    if (Type == 3)
+    {
+        ImportedBook[NameB] = nullptr;
+        cout << "deleted" << endl;
+    }
+    return;
 }
 
 void SaleSuccess()
@@ -174,24 +232,33 @@ void SaleSuccess()
 
     for (int i = 0; i < SoftcoverBook.size(); i++)
     {
+        if(SoftcoverBook.at(i) != nullptr)
+        {
         cout << "SoftCover" << endl;
         cout << "Book:      " << SoftcoverBook.at(i)->GetBook() << endl;
         cout << "Valor:     " << SoftcoverBook.at(i)->GetPrice() << endl;
         value = value + SoftcoverBook.at(i)->GetPrice();
+        }
     }
     for (int i = 0; i < HardCoverBook.size(); i++)
     {
+        if(HardCoverBook.at(i) != nullptr)
+        {
         cout << "HardCover" << endl;
         cout << "Book:      " << HardCoverBook.at(i)->GetBook() << endl;
         cout << "Valor:     " << HardCoverBook.at(i)->GetPrice() << endl;
         value = value + HardCoverBook.at(i)->GetPrice();
+        }
     }
     for (int i = 0; i < ImportedBook.size(); i++)
     {
+        if(ImportedBook.at(i) != nullptr)
+        {
         cout << "Imported" << endl;
         cout << "Book:      " << ImportedBook.at(i)->GetBook() << endl;
         cout << "Valor:     " << ImportedBook.at(i)->GetPrice() << endl;
         value = value + ImportedBook.at(i)->GetPrice();
+        }
     }
 
     cout << endl
@@ -211,4 +278,5 @@ void SaleSuccess()
     }
     delete Customer;
     delete aux;
+    return;
 }
