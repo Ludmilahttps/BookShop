@@ -12,7 +12,7 @@ public:
     Softcover() : m_bookS(""){};
     Softcover(Client *client, float price, string bookS) : Books(client, price = 20), m_bookS(bookS){};
     ~Softcover(){};
-    string GetBook() const { return m_bookS; };
+    string operator&() const { return m_bookS; };
 };
 
 #endif

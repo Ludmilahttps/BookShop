@@ -21,8 +21,9 @@ public:
 
     void NewClient(string name, string cpf); 
     string AddClient();
-    string GetName() const { return m_name; };
-    string GetCpf() const { return m_cpf; };
+    
+    string operator-() const { return m_name; };
+    string operator--() const { return m_cpf; };
 };
 
 #endif
