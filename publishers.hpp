@@ -10,6 +10,7 @@
 #include <fstream>
 #include <sstream>
 #include <algorithm>
+#include <time.h>
 
 using namespace std; // ¯\(°_o)/¯
 
@@ -20,18 +21,20 @@ private:
     pair<string, vector<string>> m_Publishers;
     string m_Publisher;
     vector<string> m_Books;
-    vector<string> filenames;
+    vector<string> m_Authors;
 
 public: 
-    Publishers() : filenames({"Darkside", "Rocco", "Harper_Collins"}){};
+    vector<string> filenames;
+    Publishers();
 
     //getters and setters
     void ShowInfo();
     void getBooks();
-    bool open_file(string m_Publisher, vector<string> &m_Books);
+    void getPublishers();
+    bool open_file(string m_Publisher, vector<string> &m_Books, vector<string> &m_Authors);
+    void addFile(string newFile);
+    void addBook(string publisher);
     pair<string, string> GetInfo(int IPublisher, int IBook);
-    
 };
-
 
 #endif
