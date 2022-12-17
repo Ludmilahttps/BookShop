@@ -9,8 +9,10 @@ O programa deve possuir :
 a) pelo menos 1 classe base e no mínimo 2 classes derivadas.
 b) a inclusão na classe base ou derivada(s) de pelo menos 1 outra classe externa (não muito simples, como a
 Point2D) na forma de atributo (variável membro), e esta definida através de ponteiros. Pode ser escolhida a
-seguinte estratégia de gestão de memória: (i) empréstimo do ponteiro e responsabilidade de desalocação no
-mundo exterior, (ii) a classe tomar posse do ponteiro, e assim se responsabilizar pela gerência de memória e
+seguinte estratégia de gestão de memória: 
+(i) empréstimo do ponteiro e responsabilidade de desalocação no
+mundo exterior, 
+(ii) a classe tomar posse do ponteiro, e assim se responsabilizar pela gerência de memória e
 destrutor.
 c) uso de no mínimo 5 métodos operadores ao todo (podem estar em várias classes).
 d) main.cpp realizando a gestão das classes, opcionalmente com um menu implementado.
