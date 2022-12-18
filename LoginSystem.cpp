@@ -2,6 +2,7 @@
 
 bool LoginSystem::login()
 {
+
     size_t option;
     do
     {
@@ -10,8 +11,10 @@ bool LoginSystem::login()
         {
             cout << "1. LogIn" << endl;
             /* DBs */
-            std::ifstream nameDB("usernames.txt");
-            std::ifstream passDB("passwords.txt");
+            // std::ifstream nameDB("usernames.txt");
+            // std::ifstream passDB("passwords.txt");
+            fstream nameDB("usernames.bin", ios::in | ios::binary);
+            fstream passDB("passwords.bin", ios::in | ios::binary);
 
             /* user input username & password */
             string uiUsername;
@@ -33,9 +36,8 @@ bool LoginSystem::login()
             cin >> uiPassword;
 
             /* Loop over usernames and set username to fUsername */
-            while (std::getline(nameDB, fUsername))
+            while (nameDB >> fUsername)
             {
-                /* Sets username to correct/incorrect */
                 if (uiUsername == fUsername)
                 {
                     usernameCorrect = true;
@@ -48,7 +50,7 @@ bool LoginSystem::login()
             }
 
             /* Same here */
-            while (std::getline(passDB, fPassword))
+            while (passDB >> fPassword)
             {
                 if (uiPassword == fPassword)
                 {
@@ -76,15 +78,16 @@ bool LoginSystem::login()
             }
             continue;
         }
-        
-    
+
         if (option == 2)
         {
             cout << "2. SignUp" << endl;
 
             /* databases in append mode */
-            ofstream nameDB("usernames.txt", ios_base::app);
-            ofstream passDB("passwords.txt", ios_base::app);
+            // ofstream nameDB("usernames.txt", ios_base::app);
+            // ofstream passDB("passwords.txt", ios_base::app);
+            fstream nameDB("usernames.bin", ios::out | ios::binary | ios::app);
+            fstream passDB("passwords.bin", ios::out | ios::binary | ios::app);
 
             /* username & password */
             string username;
@@ -99,8 +102,27 @@ bool LoginSystem::login()
             cin >> password;
 
             /* Write to DBs */
-            nameDB << endl << username;
-            passDB << endl << password;
+            nameDB << endl;
+            passDB << endl;
+            nameDB.write(username.c_str(), username.length());
+            passDB.write(password.c_str(), password.length());
+
+            //FILE *arq_usernames;
+            //pair<string, string> *user = {username, password};
+            //aux *userna = user;
+
+            // abre arquivo binario
+            // arq_usernames = fopen("users", "w+b");
+
+            // if (arq_usernames == NULL)
+            // {
+            //     printf("ERROR.\n");
+            //     exit(0);
+            // }
+
+            // fwrite(username, sizeof(string), 1, arq_usernames);
+            // fwrite(&userna->password, sizeof(string), 1, arq_usernames);
+            // fclose(arq_usernames);
 
             continue;
         }

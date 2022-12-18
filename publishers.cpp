@@ -70,7 +70,7 @@ void Publishers::ShowInfo()
     {
         for (size_t j = 0; j < m_ListOfBooks.at(i).second.size(); j++)
         {
-            cout << "Publisher " << i << " : " << m_ListOfBooks.at(i).first << "   Book " << j << " : " << m_ListOfBooks.at(i).second.at(j)
+            cout << "Publisher " << i << " : \t" << m_ListOfBooks.at(i).first << "\t   Book " << j << " : " << m_ListOfBooks.at(i).second.at(j)
                  << endl;
         }
     }
@@ -117,7 +117,7 @@ void Publishers::getPublishers()
 
 void Publishers::addBook(string publisher)
 {
-    cout << "HERE" << endl;
+    //cout << "HERE" << endl;
     string NBook, NAuthor;
     int num = stoi(publisher);
     
@@ -132,10 +132,10 @@ void Publishers::addBook(string publisher)
                 cout << "type a name of book" << endl;
                 cin.ignore();
                 getline(cin, NBook);
-                OutFile << endl << NBook ;
+                OutFile << endl << NBook << endl ;
                 cout << "type a name of Author book" << endl;
                 getline(cin, NAuthor);
-                OutFile << endl << NAuthor;
+                OutFile  << NAuthor;
                 OutFile.close();
             }
             else

@@ -11,6 +11,7 @@
 #include <sstream>
 #include <algorithm>
 #include <time.h>
+#include <hpdf.h>
 
 using namespace std; // ¯\(°_o)/¯
 
