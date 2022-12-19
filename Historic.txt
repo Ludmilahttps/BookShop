@@ -11,3 +11,16 @@ Book: Frankenstein by Mary Shelley
 Valor: 60
 
 Amount: 80
+
+
+--------------------------------------------------- 
+ 19/12/2022  Ludmila Silveira  159.846.259-85
+--------------------------------------------------- 
+HardCover
+Book: Acort of silver and flames by Sarah J. Mass
+Valor: 40
+Imported
+Book: Rocco and the Nightingale by Adrian Magson
+Valor: 60
+
+Amount: 100

@@ -223,9 +223,30 @@ int main()
                     if (opt == 3)
                     {
                         system("cls");
-                        cout << "3. Export history to PDF" << endl;
+                        cout << "3. Export history to TXT" << endl;
+                        string Filename;
+                        cout << "Enter a filename: " << endl;
+                        getline(cin >> ws, Filename);
+
+                        ifstream infile("Historic.txt"); // abre o arquivo em questão para pegar as strings
+                        ofstream OutFile;
+                        OutFile.open(Filename, ios_base::app);
+                        if (OutFile.is_open())
+                        {
+
+                            if (infile.is_open())
+                            {
+                                string line;
+                                while (getline(infile, line))
+                                {
+                                    OutFile << line << endl;
+                                    //cout << line << endl;
+                                }
+                                infile.close(); // fecha o arquivo
+                            }
+                        }
                         // //Cria um novo documento PDF
-                        //                                           HPDF_Doc pdf = HPDF_New(NULL, NULL);
+                        //   HPDF_Doc pdf = HPDF_New(NULL, NULL);
                         // if (!pdf)
                         // {
                         //     std::cerr << "Erro ao criar documento PDF" << std::endl;
@@ -360,7 +381,7 @@ size_t MenuHistoric()
     cout << "----------------Historic-----------------" << endl
          << "1. See sales history" << endl
          << "2. Reset history" << endl
-         << "3. Export history to PDF" << endl
+         << "3. Export history to TXT" << endl
          << "4. Back menu" << endl
          << "-------------------------------------------------" << endl
          << "Option:";
