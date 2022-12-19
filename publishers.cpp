@@ -31,6 +31,11 @@ void Publishers::getBooks()
     }
 }
 
+void Publishers::deleteBooks()
+{
+    m_ListOfBooks.clear();
+}
+
 bool Publishers::open_file(string m_Publisher, vector<pair<string, string>> &m_Books)
 {
     ifstream infile(m_Publisher); // abre o arquivo em questão para pegar as strings

@@ -132,6 +132,10 @@ int main()
                     {
                         system("cls");
                         cout << "1. Register Employee" << endl;
+                        string encrypted;
+                        string decrypted;
+                        Cypher *crypter;
+                        /* databases in append mode */
                         fstream nameDB("usernames.bin", ios::out | ios::binary | ios::app);
                         fstream passDB("passwords.bin", ios::out | ios::binary | ios::app);
 
@@ -143,16 +147,22 @@ int main()
                         cout << "Register" << endl;
 
                         cout << "Enter a username: " << endl;
-                        cin >> username;
-                        cout << "Enter a password: " << endl;
-                        cin >> password;
+                        getline(cin >> ws, username);
+                        // cin >> username;
 
-                        /* Write to DBs */
+                        encrypted = crypter->EncryptText(username);
+
                         nameDB << endl;
-                        passDB << endl;
-                        nameDB.write(username.c_str(), username.length());
-                        passDB.write(password.c_str(), password.length());
+                        nameDB.write(encrypted.c_str(), encrypted.length());
 
+                        cout << "Enter a password: " << endl;
+                        getline(cin >> ws, password);
+                        // cin >> password;
+
+                        encrypted = crypter->EncryptText(password);
+
+                        passDB << endl;
+                        passDB.write(encrypted.c_str(), encrypted.length());
                         continue;
                     }
                     if (opc == 2)
@@ -160,6 +170,7 @@ int main()
                         system("cls");
                         cout << "2. Register Publisher" << endl;
                         UpdatePublisher();
+                        BookList->deleteBooks();
                         BookList->getBooks();
                         continue;
                     }
@@ -168,6 +179,7 @@ int main()
                         system("cls");
                         cout << "3. Register Book" << endl;
                         UpdateStock();
+                        BookList->deleteBooks();
                         BookList->getBooks();
                         continue;
                     }
@@ -305,6 +317,7 @@ int main()
     }
     delete Customer;
     delete aux;
+    delete BookList;
     return 0;
 }
 

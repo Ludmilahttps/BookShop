@@ -31,6 +31,7 @@ public:
     //getters and setters
     void ShowInfo();
     void getBooks();
+    void deleteBooks();
     void getPublishers();
     bool open_file(string m_Publisher, vector<pair<string, string>> &m_Books);
     void addFile(string newFile);

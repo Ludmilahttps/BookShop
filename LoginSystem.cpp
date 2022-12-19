@@ -2,6 +2,12 @@
 
 bool LoginSystem::login()
 {
+    string encrypted;
+    string decrypted;
+    Cypher *crypter;
+    int code;
+    crypter = new Cypher(2210);
+    // chama a tabela de conversão, se atualizar todas as senhas cadastradas anteriormento entram em desuso
 
     size_t option;
     do
@@ -12,15 +18,12 @@ bool LoginSystem::login()
             system("cls");
             cout << "1. LogIn" << endl;
             /* DBs */
-            // std::ifstream nameDB("usernames.txt");
-            // std::ifstream passDB("passwords.txt");
             fstream nameDB("usernames.bin", ios::in | ios::binary);
             fstream passDB("passwords.bin", ios::in | ios::binary);
 
             /* user input username & password */
             string uiUsername;
             string uiPassword;
-
             /* field input username & password */
             string fUsername;
             string fPassword;
@@ -28,39 +31,35 @@ bool LoginSystem::login()
             /* bools for usernameCorrect and passwordCorrect */
             bool usernameCorrect, passwordCorrect;
 
-            /* Login */
-            cout << "Login" << endl;
-
             cout << "Enter your username: " << endl;
-            cin >> uiUsername;
-            cout << "Enter your password: " << endl;
-            cin >> uiPassword;
+            getline(cin >> ws, uiUsername);
+            //cin >> uiUsername;
+
+            encrypted = crypter->EncryptText(uiUsername);
 
             /* Loop over usernames and set username to fUsername */
             while (nameDB >> fUsername)
             {
-                if (uiUsername == fUsername)
+                if (encrypted == fUsername)
                 {
                     usernameCorrect = true;
                     break;
                 }
-                else
-                {
-                    usernameCorrect = false;
-                }
             }
+
+            cout << "Enter your password: " << endl;
+            getline(cin >> ws, uiPassword);
+            //cin >> uiPassword;
+
+            encrypted = crypter->EncryptText(uiPassword);
 
             /* Same here */
             while (passDB >> fPassword)
             {
-                if (uiPassword == fPassword)
+                if (encrypted == fPassword)
                 {
                     passwordCorrect = true;
                     break;
-                }
-                else
-                {
-                    passwordCorrect = false;
                 }
             }
 
@@ -82,8 +81,6 @@ bool LoginSystem::login()
             cout << "2. SignUp" << endl;
 
             /* databases in append mode */
-            // ofstream nameDB("usernames.txt", ios_base::app);
-            // ofstream passDB("passwords.txt", ios_base::app);
             fstream nameDB("usernames.bin", ios::out | ios::binary | ios::app);
             fstream passDB("passwords.bin", ios::out | ios::binary | ios::app);
 
@@ -95,32 +92,22 @@ bool LoginSystem::login()
             cout << "Register" << endl;
 
             cout << "Enter a username: " << endl;
-            cin >> username;
-            cout << "Enter a password: " << endl;
-            cin >> password;
+            getline(cin >> ws, username);
+            //cin >> username;
 
-            /* Write to DBs */
+            encrypted = crypter->EncryptText(username);
+
             nameDB << endl;
+            nameDB.write(encrypted.c_str(), encrypted.length());
+
+            cout << "Enter a password: " << endl;
+            getline(cin >> ws, password);
+            //cin >> password;
+            
+            encrypted = crypter->EncryptText(password);
+
             passDB << endl;
-            nameDB.write(username.c_str(), username.length());
-            passDB.write(password.c_str(), password.length());
-
-            //FILE *arq_usernames;
-            //pair<string, string> *user = {username, password};
-            //aux *userna = user;
-
-            // abre arquivo binario
-            // arq_usernames = fopen("users", "w+b");
-
-            // if (arq_usernames == NULL)
-            // {
-            //     printf("ERROR.\n");
-            //     exit(0);
-            // }
-
-            // fwrite(username, sizeof(string), 1, arq_usernames);
-            // fwrite(&userna->password, sizeof(string), 1, arq_usernames);
-            // fclose(arq_usernames);
+            passDB.write(encrypted.c_str(), encrypted.length());
 
             continue;
         }

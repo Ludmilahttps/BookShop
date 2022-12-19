@@ -2,6 +2,8 @@
 #define LOGINSYSTEM_HPP
 
 #include "Publishers.hpp"
+#include "cypher.hpp"
+#include "convTable.hpp"
 
 class LoginSystem {
 private:

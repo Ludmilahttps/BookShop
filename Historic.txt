@@ -1,13 +1,13 @@
 
 
 --------------------------------------------------- 
- 18/12/2022  Ludmila Silveira  129.797.079-96
+ 18/12/2022  Matheus Bandeira  158.963.742-58
 --------------------------------------------------- 
-HardCover
-Book: Acort of silver and flames 	 Sarah J. Mass
- Valor: 40
+SoftCover
+Book: Acort of silver and flames by Sarah J. Mass
+Valor: 20
 Imported
-Book: Purple Crayons	 Ross Ellenhorn
+Book: Frankenstein by Mary Shelley
 Valor: 60
 
-Amount: 100
+Amount: 80
