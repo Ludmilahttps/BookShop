@@ -9,13 +9,32 @@ void Client::NewClient(string name, string cpf)
 
 string Client::AddClient()
 {
+
     cin.ignore();
     string name, cpf, date;
+    int ok = 0;
     cout << "Enter the Customer's name: " << endl;
     getline(cin, name);
-    cout << "Enter the CPF of Client " << name << ":" << endl;
-    getline(cin, cpf);
-    NewClient(name, cpf);
+
+    do
+    {
+        cout << "Enter the CPF of Client " << name << ":" << endl;
+        getline(cin, cpf);
+        if (cpf.size() == 11)
+        {
+            cpf.insert(3, ".");
+            cpf.insert(7, ".");
+            cpf.insert(11, "-");
+            NewClient(name, cpf);
+            ok = 1;
+        }
+        else
+        {
+            // O CPF não tem exatamente 11 dígitos, então é inválido
+            cout << "Your CPF is invalid. Please enter a valid 11-digit CPF." << endl;
+            ok = 0;
+        }
+    } while (ok != 1);
 
     time_t mytime;
     mytime = time(NULL);

@@ -9,6 +9,7 @@ bool LoginSystem::login()
         option = menu();
         if (option == 1)
         {
+            system("cls");
             cout << "1. LogIn" << endl;
             /* DBs */
             // std::ifstream nameDB("usernames.txt");
@@ -72,15 +73,12 @@ bool LoginSystem::login()
                 cout << "Hello, " << uiUsername << "!" << endl;
                 return true;
             }
-            else
-            {
-                return false;
-            }
             continue;
         }
 
         if (option == 2)
         {
+            system("cls");
             cout << "2. SignUp" << endl;
 
             /* databases in append mode */
@@ -129,6 +127,7 @@ bool LoginSystem::login()
         if (option == 3)
         {
             cout << "3. Exit" << endl;
+            return false;
             break;
         }
         if (option != 1 || option != 2 || option != 3)
@@ -142,7 +141,7 @@ bool LoginSystem::login()
 size_t LoginSystem::menu()
 {
     size_t option;
-
+    system("cls");
     cout << "------------Welcome to login system!-------------" << endl
          << "1. LogIn" << endl
          << "2. SignUp" << endl

@@ -18,6 +18,7 @@ vector<Imported *> ImportedBook;
 size_t SalesDepartment();
 size_t menu();
 size_t Register();
+size_t MenuHistoric();
 void saveInfo();
 void Historic();
 void UpdateStock();
@@ -40,12 +41,14 @@ int main()
             option = menu();
             if (option == 1)
             {
+                system("cls");
                 cout << "1. Sales department" << endl;
                 do
                 {
                     option = SalesDepartment();
                     if (option == 1)
                     {
+                        system("cls");
                         cout << "1. See All Books" << endl;
                         cout << "These are the books in the stock" << endl;
                         BookList->ShowInfo();
@@ -54,6 +57,7 @@ int main()
                     if (option == 2)
                     {
                         int IndexPublisher, IndexBook;
+                        system("cls");
                         cout << "2. Add Book to card" << endl;
                         cout << "These are the books available for purchase" << endl;
                         BookList->ShowInfo();
@@ -68,9 +72,10 @@ int main()
                     if (option == 3)
                     {
                         int Type, NameB;
+                        system("cls");
                         cout << "3. Remove book" << endl;
                         cout << "These are the books in your cart" << endl;
-                        void ShowCart();
+                        ShowCart();
 
                         cout << "What type of book do you want to delete? 1.SoftCover 2.HardCover 3.Imported" << endl;
                         cin >> Type;
@@ -87,12 +92,14 @@ int main()
                     }
                     if (option == 4)
                     {
+                        system("cls");
                         cout << "4. Show cart" << endl;
                         ShowCart();
                         continue;
                     }
                     if (option == 5)
                     {
+                        system("cls");
                         cout << "5. Checkout" << endl;
                         aux->Date(Customer->AddClient());
                         SaleSuccess();
@@ -100,28 +107,13 @@ int main()
                     }
                     if (option == 6)
                     {
-                        cout << "6. Exit" << endl;
-                        for (int i = 0; i < SoftcoverBook.size(); i++)
-                        {
-                            delete SoftcoverBook.at(i);
-                            SoftcoverBook.erase(remove(SoftcoverBook.begin(), SoftcoverBook.end(), SoftcoverBook.at(i)));
-                        }
-                        for (int i = 0; i < HardCoverBook.size(); i++)
-                        {
-                            delete HardCoverBook.at(i);
-                            HardCoverBook.erase(remove(HardCoverBook.begin(), HardCoverBook.end(), HardCoverBook.at(i)));
-                        }
-                        for (int i = 0; i < ImportedBook.size(); i++)
-                        {
-                            delete ImportedBook.at(i);
-                            ImportedBook.erase(remove(ImportedBook.begin(), ImportedBook.end(), ImportedBook.at(i)));
-                        }
-                        delete Customer;
-                        delete aux;
+                        system("cls");
+                        cout << "6. Back Menu" << endl;
                         break;
                     }
                     if (option != 1 || option != 2 || option != 3 || option != 4 || option != 5 || option != 6)
                     {
+                        system("cls");
                         cout << "Please chose a valid number" << endl;
                         continue;
                     }
@@ -130,12 +122,15 @@ int main()
             }
             if (option == 2)
             {
+                system("cls");
+                size_t opc;
                 cout << "2. Register" << endl;
                 do
                 {
-                    option = Register();
-                    if (option == 1)
+                    opc = Register();
+                    if (opc == 1)
                     {
+                        system("cls");
                         cout << "1. Register Employee" << endl;
                         fstream nameDB("usernames.bin", ios::out | ios::binary | ios::app);
                         fstream passDB("passwords.bin", ios::out | ios::binary | ios::app);
@@ -160,115 +155,145 @@ int main()
 
                         continue;
                     }
-                    if (option == 2)
+                    if (opc == 2)
                     {
+                        system("cls");
                         cout << "2. Register Publisher" << endl;
                         UpdatePublisher();
+                        BookList->getBooks();
                         continue;
                     }
-                    if (option == 3)
+                    if (opc == 3)
                     {
+                        system("cls");
                         cout << "3. Register Book" << endl;
-                        void UpdateStock();
+                        UpdateStock();
+                        BookList->getBooks();
                         continue;
                     }
-                    if (option == 4)
+                    if (opc == 4)
                     {
+                        system("cls");
                         cout << "4. Exit" << endl;
                         break;
                     }
-                    if (option != 1 || option != 2 || option != 3 || option != 4)
+                    if (opc != 1 || opc != 2 || opc != 3 || opc != 4)
                     {
+                        system("cls");
                         cout << "Please chose a valid number" << endl;
                         continue;
                     }
-                } while (option != 4);
+                } while (opc != 4);
                 continue;
             }
             if (option == 3)
             {
+                system("cls");
+                size_t opt;
                 cout << "3. Historical (historico de vendas)" << endl;
                 do
                 {
-                    option = Register();
-                    if (option == 1)
+                    opt = MenuHistoric();
+                    if (opt == 1)
                     {
+                        system("cls");
                         cout << "1. See Sales History" << endl;
                         Historic();
                         continue;
                     }
-                    if (option == 2)
+                    if (opt == 2)
                     {
+                        system("cls");
                         cout << "2. Reset history" << endl;
-
+                        ofstream out("Historic.txt", ofstream::out | ofstream::trunc);
                         continue;
                     }
-                    if (option == 3)
+                    if (opt == 3)
                     {
-                        cout << "3. Export history to PDF" << endl
-                                                                  // Cria um novo documento PDF
-                                                                  HPDF_Doc pdf = HPDF_New(NULL, NULL);
-                        if (!pdf)
-                        {
-                            std::cerr << "Erro ao criar documento PDF" << std::endl;
-                            return 1;
-                        }
+                        system("cls");
+                        cout << "3. Export history to PDF" << endl;
+                        // //Cria um novo documento PDF
+                        //                                           HPDF_Doc pdf = HPDF_New(NULL, NULL);
+                        // if (!pdf)
+                        // {
+                        //     std::cerr << "Erro ao criar documento PDF" << std::endl;
+                        //     return 1;
+                        // }
 
-                        // Abre o arquivo de texto para leitura
-                        std::ifstream txt_file("texto.txt");
-                        if (!txt_file.is_open())
-                        {
-                            std::cerr << "Erro ao abrir arquivo de texto" << std::endl;
-                            return 1;
-                        }
+                        // // Abre o arquivo de texto para leitura
+                        // std::ifstream txt_file("texto.txt");
+                        // if (!txt_file.is_open())
+                        // {
+                        //     std::cerr << "Erro ao abrir arquivo de texto" << std::endl;
+                        //     return 1;
+                        // }
 
-                        // Lê o conteúdo do arquivo de texto
-                        std::string text;
-                        std::string line;
-                        while (std::getline(txt_file, line))
-                        {
-                            text += line + "\n";
-                        }
+                        // // Lê o conteúdo do arquivo de texto
+                        // std::string text;
+                        // std::string line;
+                        // while (std::getline(txt_file, line))
+                        // {
+                        //     text += line + "\n";
+                        // }
 
-                        // Cria uma nova página no documento PDF
-                        HPDF_Page page = HPDF_AddPage(pdf);
+                        // // Cria uma nova página no documento PDF
+                        // HPDF_Page page = HPDF_AddPage(pdf);
 
-                        // Define o tamanho da fonte e o estilo
-                        HPDF_Font font = HPDF_GetFont(pdf, "Helvetica", NULL);
-                        HPDF_Page_SetFontAndSize(page, font, 12);
+                        // // Define o tamanho da fonte e o estilo
+                        // HPDF_Font font = HPDF_GetFont(pdf, "Helvetica", NULL);
+                        // HPDF_Page_SetFontAndSize(page, font, 12);
 
-                        // Adiciona o conteúdo do arquivo de texto à página
-                        HPDF_Page_BeginText(page);
-                        HPDF_Page_TextOut(page, 50, 500, text.c_str());
-                        HPDF_Page_EndText(page);
+                        // // Adiciona o conteúdo do arquivo de texto à página
+                        // HPDF_Page_BeginText(page);
+                        // HPDF_Page_TextOut(page, 50, 500, text.c_str());
+                        // HPDF_Page_EndText(page);
 
-                        // Salva o documento PDF em um arquivo
-                        HPDF_SaveToFile(pdf, "documento.pdf");
+                        // // Salva o documento PDF em um arquivo
+                        // HPDF_SaveToFile(pdf, "documento.pdf");
 
-                        // Finaliza o documento e libera a memória alocada
-                        HPDF_Free(pdf);
+                        // // Finaliza o documento e libera a memória alocada
+                        // HPDF_Free(pdf);
                         continue;
                     }
-                    if (option == 4)
+                    if (opt == 4)
                     {
+                        system("cls");
                         cout << "4. Exit" << endl;
                         break;
                     }
-                    if (option != 1 || option != 2 || option != 3 || option != 4)
+                    if (opt != 1 || opt != 2 || opt != 3 || opt != 4)
                     {
+                        system("cls");
                         cout << "Please chose a valid number" << endl;
                         continue;
                     }
-                } while (option != 4);
+                } while (opt != 4);
                 continue;
             }
             if (option == 4)
             {
+                system("cls");
                 cout << "4. Exit" << endl;
+                for (int i = 0; i < SoftcoverBook.size(); i++)
+                {
+                    delete SoftcoverBook.at(i);
+                    SoftcoverBook.erase(remove(SoftcoverBook.begin(), SoftcoverBook.end(), SoftcoverBook.at(i)));
+                }
+                for (int i = 0; i < HardCoverBook.size(); i++)
+                {
+                    delete HardCoverBook.at(i);
+                    HardCoverBook.erase(remove(HardCoverBook.begin(), HardCoverBook.end(), HardCoverBook.at(i)));
+                }
+                for (int i = 0; i < ImportedBook.size(); i++)
+                {
+                    delete ImportedBook.at(i);
+                    ImportedBook.erase(remove(ImportedBook.begin(), ImportedBook.end(), ImportedBook.at(i)));
+                }
                 break;
             }
             if (option != 1 || option != 2 || option != 3 || option != 4)
             {
+                system("cls");
                 cout << "Please chose a valid number" << endl;
                 continue;
             }
@@ -276,7 +301,7 @@ int main()
     }
     else
     {
-        cout << "I couldn't find that account." << endl;
+        cout << "bye bye" << endl;
     }
     delete Customer;
     delete aux;
@@ -286,7 +311,7 @@ int main()
 size_t menu()
 {
     size_t option;
-
+    system("cls");
     cout << "---------------------Bookstore-------------------" << endl
          << "1. Sales department(tela do vendedor)" << endl
          << "2. Register(cadastro de funcionarios e editoras e livros)" << endl
@@ -302,7 +327,6 @@ size_t menu()
 size_t SalesDepartment()
 {
     size_t option;
-
     cout << "----------------Sales Department-----------------" << endl
          << "1. See All Books" << endl
          << "2. Add Book in cart" << endl
@@ -320,7 +344,6 @@ size_t SalesDepartment()
 size_t MenuHistoric()
 {
     size_t option;
-
     cout << "----------------Historic-----------------" << endl
          << "1. See sales history" << endl
          << "2. Reset history" << endl
@@ -336,7 +359,7 @@ size_t MenuHistoric()
 size_t Register()
 {
     size_t option;
-
+    system("cls");
     cout << "---------------------Register-------------------" << endl
          << "1. Register Employee" << endl
          << "2. Register Publisher" << endl
@@ -351,7 +374,7 @@ size_t Register()
 
 void Sale(pair<string, string> element)
 {
-    string publisherName = element.first, bookName = element.second;
+    string authorName = element.first, bookName = element.second;
     float price;
     int type;
 
@@ -367,19 +390,19 @@ void Sale(pair<string, string> element)
     if (type == 1)
     {
         // Books c(Customer, price);
-        Softcover Soft(Customer, price, bookName);
+        Softcover Soft(Customer, price, bookName, authorName);
         SoftcoverBook.push_back(new Softcover(Soft));
     }
     if (type == 2)
     {
         // Books c(Customer, price);
-        HardCover Hard(Customer, price, bookName);
+        HardCover Hard(Customer, price, bookName, authorName);
         HardCoverBook.push_back(new HardCover(Hard));
     }
     if (type == 3)
     {
         // Books c(Customer, price);
-        Imported Imp(Customer, price, bookName);
+        Imported Imp(Customer, price, bookName, authorName);
         ImportedBook.push_back(new Imported(Imp));
     }
     else if (type < 1 || type > 3)
@@ -387,6 +410,7 @@ void Sale(pair<string, string> element)
         cout << "Chose a valid number!" << endl;
         return;
     }
+    system("cls");
     return;
 }
 
@@ -398,6 +422,7 @@ void ShowCart()
         {
             cout << "SoftCover" << i << endl;
             cout << "Book:      " << SoftcoverBook.at(i)->operator&() << endl;
+            cout << "Author:    " << SoftcoverBook.at(i)->GetAuthor() << endl;
             cout << "Valor:     " << SoftcoverBook.at(i)->operator++() << endl;
         }
     }
@@ -407,6 +432,7 @@ void ShowCart()
         {
             cout << "HardCover" << i << endl;
             cout << "Book:      " << HardCoverBook.at(i)->GetBook() << endl;
+            cout << "Author:    " << HardCoverBook.at(i)->GetAuthor() << endl;
             cout << "Valor:     " << HardCoverBook.at(i)->operator++() << endl;
         }
     }
@@ -416,6 +442,7 @@ void ShowCart()
         {
             cout << "Imported" << i << endl;
             cout << "Book:      " << ImportedBook.at(i)->GetBook() << endl;
+            cout << "Author:    " << ImportedBook.at(i)->GetAuthor() << endl;
             cout << "Valor:     " << ImportedBook.at(i)->operator++() << endl;
         }
     }
@@ -463,6 +490,7 @@ void SaleSuccess()
         {
             cout << "SoftCover" << endl;
             cout << "Book:      " << SoftcoverBook.at(i)->operator&() << endl;
+            cout << "Author:    " << SoftcoverBook.at(i)->GetAuthor() << endl;
             cout << "Valor:     " << SoftcoverBook.at(i)->operator++() << endl;
             value = value + SoftcoverBook.at(i)->operator++();
         }
@@ -473,6 +501,7 @@ void SaleSuccess()
         {
             cout << "HardCover" << endl;
             cout << "Book:      " << HardCoverBook.at(i)->GetBook() << endl;
+            cout << "Author:    " << HardCoverBook.at(i)->GetAuthor() << endl;
             cout << "Valor:     " << HardCoverBook.at(i)->operator++() << endl;
             value = value + HardCoverBook.at(i)->operator++();
         }
@@ -483,6 +512,7 @@ void SaleSuccess()
         {
             cout << "Imported" << endl;
             cout << "Book:      " << ImportedBook.at(i)->GetBook() << endl;
+            cout << "Author:    " << ImportedBook.at(i)->GetAuthor() << endl;
             cout << "Valor:     " << ImportedBook.at(i)->operator++() << endl;
             value = value + ImportedBook.at(i)->operator++();
         }
@@ -490,6 +520,7 @@ void SaleSuccess()
 
     cout << endl
          << "Amount:    " << value << endl;
+
     saveInfo();
 
     // Deleto os itens do carrinho
@@ -538,6 +569,7 @@ void UpdatePublisher()
 
 void saveInfo()
 {
+    cout << "here";
     ofstream OutFile;
     OutFile.open("Historic.txt", ios_base::app);
     if (OutFile.is_open())
@@ -545,7 +577,7 @@ void saveInfo()
         OutFile << endl
                 << endl;
         OutFile << "--------------------------------------------------- " << endl;
-        OutFile << " " << aux->operator+() << " " << Customer->operator-() << " " << Customer->operator--() << endl;
+        OutFile << " " << aux->operator+() << "  " << Customer->operator-() << "  " << Customer->operator--() << endl;
         OutFile << "--------------------------------------------------- " << endl;
 
         float value;
@@ -555,7 +587,8 @@ void saveInfo()
             if (SoftcoverBook.at(i) != nullptr)
             {
                 OutFile << "SoftCover" << endl;
-                OutFile << "Book: " << SoftcoverBook.at(i)->operator&() << " \t Valor: " << SoftcoverBook.at(i)->operator++() << endl;
+                OutFile << "Book: " << SoftcoverBook.at(i)->operator&() << " by " << SoftcoverBook.at(i)->GetAuthor() << endl;
+                OutFile << "Valor: " << SoftcoverBook.at(i)->operator++() << endl;
                 value = value + SoftcoverBook.at(i)->operator++();
             }
         }
@@ -564,7 +597,8 @@ void saveInfo()
             if (HardCoverBook.at(i) != nullptr)
             {
                 OutFile << "HardCover" << endl;
-                OutFile << "Book: " << HardCoverBook.at(i)->GetBook() << " \t Valor: " << HardCoverBook.at(i)->operator++() << endl;
+                OutFile << "Book: " << HardCoverBook.at(i)->GetBook() << " by " << HardCoverBook.at(i)->GetAuthor() << endl;
+                OutFile << "Valor: " << HardCoverBook.at(i)->operator++() << endl;
                 value = value + HardCoverBook.at(i)->operator++();
             }
         }
@@ -573,7 +607,8 @@ void saveInfo()
             if (ImportedBook.at(i) != nullptr)
             {
                 OutFile << "Imported" << endl;
-                OutFile << "Book: " << ImportedBook.at(i)->GetBook() << "\t Valor: " << ImportedBook.at(i)->operator++() << endl;
+                OutFile << "Book: " << ImportedBook.at(i)->GetBook() << " by " << ImportedBook.at(i)->GetAuthor() << endl;
+                OutFile << "Valor: " << ImportedBook.at(i)->operator++() << endl;
                 value = value + ImportedBook.at(i)->operator++();
             }
         }
@@ -601,7 +636,7 @@ void Historic()
         infile.close(); // fecha o arquivo
         return;
     }
-    cout << "File not found" << endl;
+    cout << "Historic is empty" << endl;
 
     return;
 }

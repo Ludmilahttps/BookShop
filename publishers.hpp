@@ -11,18 +11,18 @@
 #include <sstream>
 #include <algorithm>
 #include <time.h>
-#include <hpdf.h>
+#include <cstdlib>
+//#include <hpdf.h>
 
 using namespace std; // ¯\(°_o)/¯
 
 class Publishers
 {
 private:
-    vector<pair<string, vector<string>>> m_ListOfBooks;
-    pair<string, vector<string>> m_Publishers;
+    vector<pair<string, vector<pair<string, string>>>> m_ListOfBooks;
+    pair<string, vector<pair<string, string>>> m_Publishers;
     string m_Publisher;
-    vector<string> m_Books;
-    vector<string> m_Authors;
+    vector<pair<string, string>> m_Books;
 
 public: 
     vector<string> filenames;
@@ -32,7 +32,7 @@ public:
     void ShowInfo();
     void getBooks();
     void getPublishers();
-    bool open_file(string m_Publisher, vector<string> &m_Books, vector<string> &m_Authors);
+    bool open_file(string m_Publisher, vector<pair<string, string>> &m_Books);
     void addFile(string newFile);
     void addBook(string publisher);
     pair<string, string> GetInfo(int IPublisher, int IBook);
