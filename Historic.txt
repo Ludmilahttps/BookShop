@@ -24,3 +24,29 @@ Book: Rocco and the Nightingale by Adrian Magson
 Valor: 60
 
 Amount: 100
+
+
+--------------------------------------------------- 
+ 19/12/2022  Isabele  741.852.963-52
+--------------------------------------------------- 
+HardCover
+Book: American Dinasty by Tracey Livesay
+Valor: 40
+Imported
+Book: Red Queen by Victoria Aveyard
+Valor: 60
+
+Amount: 100
+
+
+--------------------------------------------------- 
+ 19/12/2022  Carlos   147.963.258-46
+--------------------------------------------------- 
+SoftCover
+Book: Red Queen by Victoria Aveyard
+Valor: 20
+HardCover
+Book: Verity by Colleen Hoover
+Valor: 40
+
+Amount: 60
